@@ -39,7 +39,6 @@ public class PostagemController {
 	public ResponseEntity<List<Postagem>> getAll() {
 		return ResponseEntity.ok(postagemRepository.findAll());
 
-		// SELECT * FROM tb_postagens;
 	}
 
 	@GetMapping("/{id}")
@@ -49,7 +48,6 @@ public class PostagemController {
 			.map(resposta -> ResponseEntity.ok(resposta))
 			.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 
-		// SELECT * FROM tb_postagens WHERE id = ?;
 	}
 
 	@GetMapping("/titulo/{titulo}")
@@ -57,7 +55,6 @@ public class PostagemController {
 
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo));
 
-		// SELECT * FROM tb_postagens WHERE titulo LIKE "%titulo%";
 	}
 
 	@PostMapping
@@ -67,9 +64,6 @@ public class PostagemController {
 
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tema não existe!", null);
 
-		/*
-		 * INSERT INTO tb_postagens (data, titulo, texto) VALUES (?, ?, ?)
-		 */
 	}
 
 	@PutMapping
