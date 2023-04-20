@@ -1,13 +1,17 @@
 package com.generation.blogpessoal.model;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,6 +31,10 @@ public class Postagem {
 	@NotBlank(message = "Obrigatorio!")
 	@Size(min = 10, max = 1000, message = "O atributo deve ter entre 10 e 1000 char.")
 	private String texto;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 	
 	@UpdateTimestamp
 	private LocalDateTime data;
@@ -54,6 +62,18 @@ public class Postagem {
 	}
 	public void setData(LocalDateTime data) {
 		this.data = data;
+	}
+	public Optional<Postagem> map(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 }
