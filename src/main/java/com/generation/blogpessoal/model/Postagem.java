@@ -1,7 +1,6 @@
 package com.generation.blogpessoal.model;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,56 +16,67 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_postagens")
+@Table(name = "tb_postagens") /*CREATE TABLE tb_postagens*/
 public class Postagem {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id // O Atributo é a Chave Primária
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment
 	private Long id;
 	
-	@NotBlank(message = "Obrigatorio!")
-	@Size(min = 5, max = 100, message = "O atributo deve ter entre 5 e 100 char.")
+	@NotBlank(message = "O Atributo título é Obrigatório!") // Exclusivo para String
+	@Size(min = 5, max = 100, message = "O atributo título deve ter no minimo 05 e no máximo 100 caracteres")
 	private String titulo;
 	
-	@NotBlank(message = "Obrigatorio!")
-	@Size(min = 10, max = 1000, message = "O atributo deve ter entre 10 e 1000 char.")
+	@NotBlank(message = "O Atributo texto é Obrigatório!")
+	@Size(min = 10, max = 1000, message = "O atributo texto deve ter no minimo 10 e no máximo 1000 caracteres")
 	private String texto;
+	
+	@UpdateTimestamp
+	private LocalDateTime data;
+
+	/* Relacionamento*/
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 	
-	@UpdateTimestamp
-	private LocalDateTime data;
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 	
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getTitulo() {
 		return titulo;
 	}
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 	public String getTexto() {
 		return texto;
 	}
+
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
+
 	public LocalDateTime getData() {
 		return data;
 	}
+
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
-	public Optional<Postagem> map(Object object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+	/* Criar os Métodos Get e Set do Objeto Tema*/
 	
 	public Tema getTema() {
 		return tema;
@@ -76,4 +86,12 @@ public class Postagem {
 		this.tema = tema;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+		
 }
